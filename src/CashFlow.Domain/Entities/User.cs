@@ -1,9 +1,9 @@
-﻿using CashFlow.Communication.Enums;
+﻿using CashFlow.Domain.Enums;
 
-namespace CashFlow.Communication.Requests;
-public class RequestRegisterUserJson
+namespace CashFlow.Domain.Entities;
+public class User
 {
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string UserName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
