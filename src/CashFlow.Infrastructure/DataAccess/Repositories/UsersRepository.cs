@@ -4,11 +4,13 @@ using CashFlow.Domain.Repositories.Users;
 namespace CashFlow.Infrastructure.DataAccess.Repositories;
 internal class UsersRepository : IUsersRepository
 {
+    private readonly CashFlowDbContext _dbContext;
+    public UsersRepository(CashFlowDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
     public void Add(User user)
     {
-        var dbContext = new CashFlowDbContext();
-
-        dbContext.Users.Add(user);
-        dbContext.SaveChanges();
+        _dbContext.Users.Add(user);
     }
 }
