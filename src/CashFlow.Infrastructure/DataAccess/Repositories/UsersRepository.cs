@@ -9,8 +9,8 @@ internal class UsersRepository : IUsersRepository
     {
         _dbContext = dbContext;
     }
-    public void Add(User user)
+    public async Task Add(User user)
     {
-        _dbContext.Users.Add(user);
+        await _dbContext.Users.AddAsync(user);
     }
 }

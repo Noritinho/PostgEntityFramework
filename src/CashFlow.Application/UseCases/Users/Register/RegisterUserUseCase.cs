@@ -16,7 +16,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         _unitOfWork = unitOfWork;
     }
 
-    public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
+    public async Task <ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validate(request);
 
@@ -28,8 +28,8 @@ public class RegisterUserUseCase : IRegisterUserUseCase
             UserType = (Domain.Enums.UserType)request.UserType
         };
 
-        _repository.Add(entity);
-        _unitOfWork.Commit();
+        await _repository.Add(entity);
+        await _unitOfWork.Commit();
 
         return new ResponseRegisteredUserJson();
     }

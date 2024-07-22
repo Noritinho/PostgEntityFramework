@@ -3,5 +3,5 @@
 namespace CashFlow.Domain.Repositories.Users;
 public interface IUsersRepository
 {
-    public void Add(User user);
+    public Task Add(User user);
 }

@@ -4,5 +4,5 @@ using CashFlow.Communication.Responses;
 namespace CashFlow.Application.UseCases.Users.Register;
 public interface IRegisterUserUseCase
 {
-    ResponseRegisteredUserJson Execute(RequestRegisterUserJson request);
+    public Task <ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request);
 }

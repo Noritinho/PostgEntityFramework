@@ -9,11 +9,11 @@ namespace CashFlow.Api.Controllers;
 public class UsersController : ControllerBase
 {
     [HttpPost]
-    public IActionResult Register(
+    public async Task <IActionResult> Register(
         [FromServices] IRegisterUserUseCase useCase,
         [FromBody] RequestRegisterUserJson request)
     {
-        var response = useCase.Execute(request);
+        var response = await useCase.Execute(request);
 
         return Created(string.Empty, response);
     }
