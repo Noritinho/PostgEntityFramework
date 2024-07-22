@@ -1,4 +1,5 @@
-﻿using CashFlow.Communication.Requests;
+﻿using AutoMapper;
+using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repositories;
@@ -10,28 +11,27 @@ public class RegisterUserUseCase : IRegisterUserUseCase
 {
     private readonly IUsersRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    public RegisterUserUseCase(IUsersRepository repository, IUnitOfWork unitOfWork)
+    private readonly IMapper _mapper;
+    public RegisterUserUseCase(
+        IUsersRepository repository, 
+        IUnitOfWork unitOfWork,
+        IMapper mapper)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task <ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validate(request);
 
-        var entity = new User
-        {
-            UserName = request.UserName,
-            Email = request.Email,
-            Password = request.Password,
-            UserType = (Domain.Enums.UserType)request.UserType
-        };
+        var entity = _mapper.Map<User>(request);
 
         await _repository.Add(entity);
         await _unitOfWork.Commit();
 
-        return new ResponseRegisteredUserJson();
+        return _mapper.Map<ResponseRegisteredUserJson>(entity);
     }
 
     private void Validate(RequestRegisterUserJson request)
