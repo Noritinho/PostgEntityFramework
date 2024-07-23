@@ -132,4 +132,7 @@
   <data name="USERNAME_REQUIRED" xml:space="preserve">
     <value>O Nome de usuário é obrigatório</value>
   </data>
+  <data name="USER_NOT_FOUND" xml:space="preserve">
+    <value>Usuário não encontrado</value>
+  </data>
 </root>

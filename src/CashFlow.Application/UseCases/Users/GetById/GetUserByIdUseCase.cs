@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using CashFlow.Communication.Responses;
 using CashFlow.Domain.Repositories.Users;
+using CashFlow.Exception;
+using CashFlow.Exception.ExceptionsBase;
 
 namespace CashFlow.Application.UseCases.Users.GetById;
 public class GetUserByIdUseCase : IGetUserByIdUseCase
@@ -17,6 +19,10 @@ public class GetUserByIdUseCase : IGetUserByIdUseCase
     {
         var result = await _repository.GetById(id);
 
+        if (result is null)
+        {
+            throw new NotFoundException(ResourceErrorMessages.USER_NOT_FOUND);
+        }
         return _mapper.Map<ResponseUserJson>(result);
     }
 }
