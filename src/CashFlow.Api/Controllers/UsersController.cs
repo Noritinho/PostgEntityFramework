@@ -1,4 +1,5 @@
 ﻿using CashFlow.Application.UseCases.Users.GetAll;
+using CashFlow.Application.UseCases.Users.GetById;
 using CashFlow.Application.UseCases.Users.Register;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
@@ -23,7 +24,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(ResponseUserJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseUsersJson), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllUsers([FromServices] IGetAllUserUseCase useCase)
     {
@@ -36,4 +37,16 @@ public class UsersController : ControllerBase
 
     }
 
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseUserJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById([FromServices] IGetUserByIdUseCase useCase,
+    [FromRoute] long id)
+    {
+        var response = await useCase.Execute(id);
+
+        return Ok(response);
+
+    }
 }

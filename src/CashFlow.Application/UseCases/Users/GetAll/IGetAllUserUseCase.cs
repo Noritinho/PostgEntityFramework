@@ -3,5 +3,5 @@
 namespace CashFlow.Application.UseCases.Users.GetAll;
 public interface IGetAllUserUseCase
 {
-    public Task<ResponseUserJson> Execute();
+    public Task<ResponseUsersJson> Execute();
 }

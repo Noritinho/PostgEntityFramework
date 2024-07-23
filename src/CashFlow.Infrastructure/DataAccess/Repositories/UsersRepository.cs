@@ -19,4 +19,9 @@ internal class UsersRepository : IUsersRepository
     {
         return await _dbContext.Users.AsNoTracking().ToListAsync();
     }
+
+    public async Task<User?> GetById(long id)
+    {
+        return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Id == id);
+    }
 }

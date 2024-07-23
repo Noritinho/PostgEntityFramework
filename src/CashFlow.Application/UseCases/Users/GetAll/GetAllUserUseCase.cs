@@ -13,11 +13,11 @@ public class GetAllUserUseCase : IGetAllUserUseCase
         _mapper = mapper;
     }
 
-    public async Task<ResponseUserJson> Execute()
+    public async Task<ResponseUsersJson> Execute()
     {
         var result = await _repository.GetAll();
 
-        return new ResponseUserJson
+        return new ResponseUsersJson
         {
             Users = _mapper.Map<List<ResponseShortUserJson>>(result)
         };

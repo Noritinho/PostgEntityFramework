@@ -20,5 +20,6 @@ public class AutoMapping : Profile
     {
         CreateMap<User, ResponseRegisteredUserJson>();
         CreateMap<User, ResponseShortUserJson>();
+        CreateMap<User, ResponseUserJson>();
     }
 }
