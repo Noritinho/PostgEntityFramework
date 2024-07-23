@@ -1,4 +1,5 @@
-﻿using CashFlow.Application.UseCases.Users.Register;
+﻿using CashFlow.Application.UseCases.Users.GetAll;
+using CashFlow.Application.UseCases.Users.Register;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -20,4 +21,19 @@ public class UsersController : ControllerBase
 
         return Created(string.Empty, response);
     }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseUserJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllUsers([FromServices] IGetAllUserUseCase useCase)
+    {
+        var response = await useCase.Execute();
+
+        if (response.Users.Count != 0)
+            return Ok(response);
+
+        return NoContent();
+
+    }
+
 }

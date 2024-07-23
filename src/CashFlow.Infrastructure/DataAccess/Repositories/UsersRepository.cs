@@ -1,5 +1,6 @@
 ﻿using CashFlow.Domain.Entities;
 using CashFlow.Domain.Repositories.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infrastructure.DataAccess.Repositories;
 internal class UsersRepository : IUsersRepository
@@ -12,5 +13,10 @@ internal class UsersRepository : IUsersRepository
     public async Task Add(User user)
     {
         await _dbContext.Users.AddAsync(user);
+    }
+
+    public async Task<List<User>> GetAll()
+    {
+        return await _dbContext.Users.AsNoTracking().ToListAsync();
     }
 }
