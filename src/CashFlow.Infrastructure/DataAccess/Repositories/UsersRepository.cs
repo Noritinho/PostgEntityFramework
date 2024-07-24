@@ -3,7 +3,7 @@ using CashFlow.Domain.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 
 namespace CashFlow.Infrastructure.DataAccess.Repositories;
-internal class UsersRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserDeleteOnlyRepository
+internal class UsersRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserDeleteOnlyRepository, IUserUpdateOnlyRepository
 {
     private readonly CashFlowDbContext _dbContext;
     public UsersRepository(CashFlowDbContext dbContext)
@@ -20,9 +20,14 @@ internal class UsersRepository : IUserReadOnlyRepository, IUserWriteOnlyReposito
         return await _dbContext.Users.AsNoTracking().ToListAsync();
     }
 
-    public async Task<User?> GetById(long id)
+    async Task<User?> IUserReadOnlyRepository.GetById(long id)
     {
         return await _dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Id == id);
+    }
+
+    async Task<User?> IUserUpdateOnlyRepository.GetById(long id)
+    {
+        return await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == id);
     }
 
     public async Task<bool> Delete(long id)
@@ -37,5 +42,10 @@ internal class UsersRepository : IUserReadOnlyRepository, IUserWriteOnlyReposito
         _dbContext.Users.Remove(result);
 
         return true;
+    }
+
+    public void Update(User user)
+    {
+        _dbContext.Users.Update(user);
     }
 }

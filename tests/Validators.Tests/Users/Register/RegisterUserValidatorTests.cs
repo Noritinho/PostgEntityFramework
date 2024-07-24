@@ -1,4 +1,5 @@
-﻿using CashFlow.Application.UseCases.Users.Register;
+﻿using CashFlow.Application.UseCases.Users;
+using CashFlow.Application.UseCases.Users.Register;
 using CashFlow.Communication.Enums;
 using CashFlow.Exception;
 using CommomTestUtilities.Requests;
@@ -10,7 +11,7 @@ public class RegisterUserValidatorTests
     [Fact]
     public void Success()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();
 
         var result = validator.Validate(request);
@@ -21,7 +22,7 @@ public class RegisterUserValidatorTests
     [Fact]
     public void Error_Username_Empty()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();
         request.UserName = string.Empty;
 
@@ -34,7 +35,7 @@ public class RegisterUserValidatorTests
     [Fact]
     public void Error_Email_Empty()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Email = string.Empty;
 
@@ -47,7 +48,7 @@ public class RegisterUserValidatorTests
     [Fact]
     public void Error_Password_Empty()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();
         request.Password = string.Empty;
 
@@ -60,9 +61,9 @@ public class RegisterUserValidatorTests
     [Fact]
     public void Error_User_Type_Invalid()
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();
-        request.Type = (UserType)4;
+        request.UserType = (UserType)4;
 
         var result = validator.Validate(request);
 

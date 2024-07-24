@@ -2,6 +2,7 @@
 using CashFlow.Application.UseCases.Users.GetAll;
 using CashFlow.Application.UseCases.Users.GetById;
 using CashFlow.Application.UseCases.Users.Register;
+using CashFlow.Application.UseCases.Users.Update;
 using CashFlow.Communication.Requests;
 using CashFlow.Communication.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ public class UsersController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task <IActionResult> Register(
         [FromServices] IRegisterUserUseCase useCase,
-        [FromBody] RequestRegisterUserJson request)
+        [FromBody] RequestUserJson request)
     {
         var response = await useCase.Execute(request);
 
@@ -60,6 +61,21 @@ public class UsersController : ControllerBase
         [FromRoute] long id)
     {
         await useCase.Execute(id);
+        return NoContent();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateUserUseCase useCase,
+        [FromRoute] long id,
+        [FromBody] RequestUserJson request)
+    {
+        await useCase.Execute(id, request);
+
         return NoContent();
     }
 }

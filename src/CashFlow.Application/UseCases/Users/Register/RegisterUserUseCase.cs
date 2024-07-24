@@ -22,7 +22,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         _mapper = mapper;
     }
 
-    public async Task <ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
+    public async Task <ResponseRegisteredUserJson> Execute(RequestUserJson request)
     {
         Validate(request);
 
@@ -34,9 +34,9 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         return _mapper.Map<ResponseRegisteredUserJson>(entity);
     }
 
-    private void Validate(RequestRegisterUserJson request)
+    private void Validate(RequestUserJson request)
     {
-        var validator = new RegisterUserValidator();
+        var validator = new UserValidator();
         var result = validator.Validate(request);
 
         if(!result.IsValid)

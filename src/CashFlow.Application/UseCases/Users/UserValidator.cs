@@ -2,10 +2,10 @@
 using CashFlow.Exception;
 using FluentValidation;
 
-namespace CashFlow.Application.UseCases.Users.Register;
-public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
+namespace CashFlow.Application.UseCases.Users;
+public class UserValidator : AbstractValidator<RequestUserJson>
 {
-    public RegisterUserValidator()
+    public UserValidator()
     {
         RuleFor(user => user.UserName).NotEmpty().WithMessage(ResourceErrorMessages.USERNAME_REQUIRED);
         RuleFor(user => user.Email).NotEmpty().EmailAddress().WithMessage(ResourceErrorMessages.EMAIL_REQUIRED);
