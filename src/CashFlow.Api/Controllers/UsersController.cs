@@ -1,4 +1,5 @@
-﻿using CashFlow.Application.UseCases.Users.GetAll;
+﻿using CashFlow.Application.UseCases.Users.Delete;
+using CashFlow.Application.UseCases.Users.GetAll;
 using CashFlow.Application.UseCases.Users.GetById;
 using CashFlow.Application.UseCases.Users.Register;
 using CashFlow.Communication.Requests;
@@ -48,5 +49,17 @@ public class UsersController : ControllerBase
 
         return Ok(response);
 
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteUserUseCase useCase,
+        [FromRoute] long id)
+    {
+        await useCase.Execute(id);
+        return NoContent();
     }
 }
