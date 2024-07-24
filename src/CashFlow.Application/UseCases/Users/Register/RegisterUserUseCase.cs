@@ -9,11 +9,11 @@ using CashFlow.Exception.ExceptionsBase;
 namespace CashFlow.Application.UseCases.Users.Register;
 public class RegisterUserUseCase : IRegisterUserUseCase
 {
-    private readonly IUsersRepository _repository;
+    private readonly IUserWriteOnlyRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
     public RegisterUserUseCase(
-        IUsersRepository repository, 
+        IUserWriteOnlyRepository repository, 
         IUnitOfWork unitOfWork,
         IMapper mapper)
     {

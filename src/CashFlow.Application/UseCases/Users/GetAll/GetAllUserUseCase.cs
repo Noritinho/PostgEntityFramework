@@ -5,9 +5,9 @@ using CashFlow.Domain.Repositories.Users;
 namespace CashFlow.Application.UseCases.Users.GetAll;
 public class GetAllUserUseCase : IGetAllUserUseCase
 {
-    private readonly IUsersRepository _repository;
+    private readonly IUserReadOnlyRepository _repository;
     private readonly IMapper _mapper;
-    public GetAllUserUseCase(IUsersRepository repository, IMapper mapper)
+    public GetAllUserUseCase(IUserReadOnlyRepository repository, IMapper mapper)
     {
         _repository = repository;
         _mapper = mapper;
